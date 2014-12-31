@@ -29,3 +29,11 @@ node_modules
 
 # IDE
 .idea
+
+# By angular-fullstack
+public
+.tmp
+.sass-cache
+client/bower_components
+dist
+/server/config/local.env.js
