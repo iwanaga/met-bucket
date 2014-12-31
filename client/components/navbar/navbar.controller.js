@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('metbucketApp')
+angular.module('metBucketApp')
   .controller('NavbarCtrl', function ($scope, Auth) {
     $scope.menu = [{
       'title': 'Home',

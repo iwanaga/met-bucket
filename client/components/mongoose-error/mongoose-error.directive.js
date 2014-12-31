@@ -3,7 +3,7 @@
 /**
  * Removes server error when user updates input
  */
-angular.module('metbucketApp')
+angular.module('metBucketApp')
   .directive('mongooseError', function () {
     return {
       restrict: 'A',

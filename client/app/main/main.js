@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('metbucketApp')
+angular.module('metBucketApp')
   .config(function($stateProvider) {
     $stateProvider
       .state('main', {

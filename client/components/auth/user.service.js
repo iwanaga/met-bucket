@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('metbucketApp')
+angular.module('metBucketApp')
   .factory('User', function ($resource) {
     return $resource('/api/users/:id/:controller', {
       id: '@_id'

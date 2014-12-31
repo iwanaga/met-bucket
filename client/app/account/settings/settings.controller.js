@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('metbucketApp')
+angular.module('metBucketApp')
   .controller('SettingsCtrl', function($scope, User, Auth) {
     $scope.errors = {};
 

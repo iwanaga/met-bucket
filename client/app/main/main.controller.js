@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('metbucketApp')
+angular.module('metBucketApp')
   .controller('MainCtrl', function($scope, $http, socket) {
     $scope.awesomeThings = [];
 
