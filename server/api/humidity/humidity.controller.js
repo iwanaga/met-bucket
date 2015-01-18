@@ -1,16 +1,7 @@
-/**
- * Using Rails-like standard naming convention for endpoints.
- * GET     /things              ->  index
- * POST    /things              ->  create
- * GET     /things/:id          ->  show
- * PUT     /things/:id          ->  update
- * DELETE  /things/:id          ->  destroy
- */
-
 'use strict';
 
 var _ = require('lodash');
-var Thing = require('./thing.model');
+var Humidity = require('./humidity.model');
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -59,43 +50,43 @@ function removeEntity(res) {
   };
 }
 
-// Get list of things
+// Gets list of humiditys from the DB.
 exports.index = function(req, res) {
-  Thing.findAsync()
+  Humidity.findAsync()
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
 
-// Get a single thing
+// Gets a single humidity from the DB.
 exports.show = function(req, res) {
-  Thing.findByIdAsync(req.params.id)
+  Humidity.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
 
-// Creates a new thing in the DB.
+// Creates a new humidity in the DB.
 exports.create = function(req, res) {
-  Thing.createAsync(req.body)
+  Humidity.createAsync(req.body)
     .then(responseWithResult(res, 201))
     .catch(handleError(res));
 };
 
-// Updates an existing thing in the DB.
+// Updates an existing humidity in the DB.
 exports.update = function(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  Thing.findByIdAsync(req.params.id)
+  Humidity.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(responseWithResult(res))
     .catch(handleError(res));
 };
 
-// Deletes a thing from the DB.
+// Deletes a humidity from the DB.
 exports.destroy = function(req, res) {
-  Thing.findByIdAsync(req.params.id)
+  Humidity.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
