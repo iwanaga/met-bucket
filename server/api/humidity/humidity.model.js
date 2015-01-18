@@ -3,10 +3,10 @@
 var mongoose = require('mongoose-bird')();
 var Schema = mongoose.Schema;
 
-var ThingSchema = new Schema({
+var HumiditySchema = new Schema({
   name: String,
   info: String,
   active: Boolean
 });
 
-module.exports = mongoose.model('Thing', ThingSchema);
+module.exports = mongoose.model('Humidity', HumiditySchema);

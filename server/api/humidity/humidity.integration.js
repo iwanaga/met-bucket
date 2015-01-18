@@ -3,40 +3,40 @@
 var app = require('../../app');
 var request = require('supertest');
 
-var newThing;
+var newHumidity;
 
-describe('Thing API:', function() {
+describe('Humidity API:', function() {
 
-  describe('GET /api/things', function() {
-    var things;
+  describe('GET /api/humidities', function() {
+    var humiditys;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things')
+        .get('/api/humidities')
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
           if (err) {
             return done(err);
           }
-          things = res.body;
+          humiditys = res.body;
           done();
         });
     });
 
     it('should respond with JSON array', function() {
-      things.should.be.instanceOf(Array);
+      humiditys.should.be.instanceOf(Array);
     });
 
   });
 
-  describe('POST /api/things', function() {
+  describe('POST /api/humidities', function() {
     beforeEach(function(done) {
       request(app)
-        .post('/api/things')
+        .post('/api/humidities')
         .send({
-          name: 'New Thing',
-          info: 'This is the brand new thing!!!'
+          name: 'New Humidity',
+          info: 'This is the brand new humidity!!!'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -44,55 +44,55 @@ describe('Thing API:', function() {
           if (err) {
             return done(err);
           }
-          newThing = res.body;
+          newHumidity = res.body;
           done();
         });
     });
 
-    it('should respond with the newly created thing', function() {
-      newThing.name.should.equal('New Thing');
-      newThing.info.should.equal('This is the brand new thing!!!');
+    it('should respond with the newly created humidity', function() {
+      newHumidity.name.should.equal('New Humidity');
+      newHumidity.info.should.equal('This is the brand new humidity!!!');
     });
 
   });
 
-  describe('GET /api/things/:id', function() {
-    var thing;
+  describe('GET /api/humidities/:id', function() {
+    var humidity;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things/' + newThing._id)
+        .get('/api/humidities/' + newHumidity._id)
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
           if (err) {
             return done(err);
           }
-          thing = res.body;
+          humidity = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      thing = {};
+      humidity = {};
     });
 
-    it('should respond with the requested thing', function() {
-      thing.name.should.equal('New Thing');
-      thing.info.should.equal('This is the brand new thing!!!');
+    it('should respond with the requested humidity', function() {
+      humidity.name.should.equal('New Humidity');
+      humidity.info.should.equal('This is the brand new humidity!!!');
     });
 
   });
 
-  describe('PUT /api/things/:id', function() {
-    var updatedThing
+  describe('PUT /api/humidities/:id', function() {
+    var updatedHumidity
 
     beforeEach(function(done) {
       request(app)
-        .put('/api/things/' + newThing._id)
+        .put('/api/humidities/' + newHumidity._id)
         .send({
-          name: 'Updated Thing',
-          info: 'This is the updated thing!!!'
+          name: 'Updated Humidity',
+          info: 'This is the updated humidity!!!'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -100,27 +100,27 @@ describe('Thing API:', function() {
           if (err) {
             return done(err);
           }
-          updatedThing = res.body;
+          updatedHumidity = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      updatedThing = {};
+      updatedHumidity = {};
     });
 
-    it('should respond with the updated thing', function() {
-      updatedThing.name.should.equal('Updated Thing');
-      updatedThing.info.should.equal('This is the updated thing!!!');
+    it('should respond with the updated humidity', function() {
+      updatedHumidity.name.should.equal('Updated Humidity');
+      updatedHumidity.info.should.equal('This is the updated humidity!!!');
     });
 
   });
 
-  describe('DELETE /api/things/:id', function() {
+  describe('DELETE /api/humidities/:id', function() {
 
     it('should respond with 204 on successful removal', function(done) {
       request(app)
-        .delete('/api/things/' + newThing._id)
+        .delete('/api/humidities/' + newHumidity._id)
         .expect(204)
         .end(function(err, res) {
           if (err) {
@@ -130,9 +130,9 @@ describe('Thing API:', function() {
         });
     });
 
-    it('should respond with 404 when thing does not exsist', function(done) {
+    it('should respond with 404 when humidity does not exsist', function(done) {
       request(app)
-        .delete('/api/things/' + newThing._id)
+        .delete('/api/humidities/' + newHumidity._id)
         .expect(404)
         .end(function(err, res) {
           if (err) {
