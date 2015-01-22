@@ -20,10 +20,13 @@ if (config.seedDB) { require('./config/seed'); }
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
+var arduino = new (require('johnny-five').Board)();
 var socketio = require('socket.io')(server, {
-  serveClient: (config.env === 'production') ? false : true,
+  //serveClient: (config.env === 'production'),
+  serveClient: true,
   path: '/socket.io-client'
 });
+require('./arduino')(arduino);
 require('./config/socketio')(socketio);
 require('./config/express')(app);
 require('./routes')(app);
