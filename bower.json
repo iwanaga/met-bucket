@@ -12,7 +12,10 @@
     "lodash": "3.0.x",
     "angular-socket-io": "0.7.0",
     "angular-ui-router": "0.2.13",
-    "angular-material": "0.7.0-rc3-master-f2996b7"
+    "angular-material": "0.7.0-rc3-master-f2996b7",
+    "d3": "~3.5.3",
+    "highcharts": "~4.0.4",
+    "jquery": "2.1.x"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
