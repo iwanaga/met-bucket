@@ -1,13 +1,31 @@
 'use strict';
 
-angular.module('metBucketApp').controller('HumidityCtrl', function ($scope, socket) {
-  var series;
+angular.module('metBucketApp').controller('HumidityCtrl', function ($scope, socket, $mdToast) {
+  var series, toastVisible = false;
   socket.socket.on('humidity:save', function (humidity) {
     $scope.humidity = humidity;
     series.addPoint([
-      humidity.measuredAt,
+      Date.parse(humidity.createdAt) - (new Date()).getTimezoneOffset() * 60 * 1000,
       humidity.value], true, true);
+    if (humidity.value < 100) {
+      if (!toastVisible) {
+        showSimpleToast();
+        toastVisible = true;
+      }
+    } else {
+      $mdToast.hide();
+      toastVisible = false;
+    }
   });
+
+  function showSimpleToast() {
+    $mdToast.show(
+      $mdToast.simple()
+        .content('水をあげてください！！')
+        .position('top left right')
+        .hideDelay(0)
+    );
+  }
 
   $scope.basicAreaChart = {
     chart: {
@@ -20,12 +38,6 @@ angular.module('metBucketApp').controller('HumidityCtrl', function ($scope, sock
         }
       }
     },
-    credits: {
-      enabled: false
-    },
-    exporting: {
-      enabled: false
-    },
     title: {
       text: 'Humidity'
     },
@@ -36,15 +48,7 @@ angular.module('metBucketApp').controller('HumidityCtrl', function ($scope, sock
     yAxis: {
       title: {
         text: 'Value'
-      },
-      plotLines: [{
-        value: 0,
-        width: 1,
-        color: '#808080'
-      }]
-    },
-    tooltip: {
-      enabled: false
+      }
     },
     series: [{
       name: 'Humidity',
@@ -64,11 +68,4 @@ angular.module('metBucketApp').controller('HumidityCtrl', function ($scope, sock
       })()
     }]
   };
-
-  // set up the updating of the chart each second
-  setInterval(function() {
-    var x = (new Date()).getTime() - (new Date()).getTimezoneOffset() * 60 * 1000, // current time
-      y = Math.random();
-    series.addPoint([x, y], true, true);
-  }, 1000);
 });
