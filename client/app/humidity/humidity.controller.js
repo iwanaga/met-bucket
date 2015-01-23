@@ -5,7 +5,7 @@ angular.module('metBucketApp').controller('HumidityCtrl', function ($scope, sock
   socket.socket.on('humidity:save', function (humidity) {
     $scope.humidity = humidity;
     series.addPoint([
-      humidity.measuredAt,
+      Date.parse(humidity.createdAt) - (new Date()).getTimezoneOffset() * 60 * 1000,
       humidity.value], true, true);
   });
 
@@ -64,11 +64,4 @@ angular.module('metBucketApp').controller('HumidityCtrl', function ($scope, sock
       })()
     }]
   };
-
-  // set up the updating of the chart each second
-  setInterval(function() {
-    var x = (new Date()).getTime() - (new Date()).getTimezoneOffset() * 60 * 1000, // current time
-      y = Math.random();
-    series.addPoint([x, y], true, true);
-  }, 1000);
 });
